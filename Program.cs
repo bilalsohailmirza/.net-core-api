@@ -1,4 +1,4 @@
-using api_tutorial.Repository;
+using finshark.Repository;
 using finshark.Data;
 using finshark.Interfaces;
 using Microsoft.EntityFrameworkCore;
