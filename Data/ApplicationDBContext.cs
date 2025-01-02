@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using finshark.Models;
-using Microsoft.AspNetCore.Identity;
 // using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace finshark.Data
 {
