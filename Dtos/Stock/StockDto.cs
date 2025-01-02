@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using finshark.Dtos.Comment;
 
 namespace finshark.Dtos.Stock
 {
@@ -22,5 +19,6 @@ namespace finshark.Dtos.Stock
         public long MarketCap { get; set; }
 
         // comments
+        public List<CommentDto> Comments {get; set;}
     }
 }
