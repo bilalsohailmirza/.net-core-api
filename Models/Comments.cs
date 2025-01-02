@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using finshark.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace finshark.Models
 {
     public class Comment
     {
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
@@ -17,7 +13,7 @@ namespace finshark.Models
         public int? StockId { get; set; }
 
         // Navigation Property
-#nullable enable
+        #nullable enable
         public Stock? Stock { get; set; }
 
     }
