@@ -1,21 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using finshark.Data;
 using finshark.Mappers;
 using finshark.Dtos.Stock;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using finshark.Interfaces;
-using finshark.Repository;
 
 namespace finshark.Controllers
 {
     [Route("api/stocks")]
     [ApiController]
-
+    
     public class StockController : ControllerBase
     {
         private readonly ApplicationDBContext _dbContext;
