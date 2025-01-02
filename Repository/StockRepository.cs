@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using finshark.Data;
 using finshark.Dtos.Stock;
 using finshark.Interfaces;
@@ -20,11 +16,11 @@ namespace finshark.Repository
         }
         public async Task<List<Stock>> GetAllAsync()
         {
-            return await _dbContext.Stock.ToListAsync();
+            return await _dbContext.Stock.Include(s => s.Comments).ToListAsync();
         }
         public async Task<Stock> GetByIdAsync(int id)
         {
-            return await _dbContext.Stock.FindAsync(id);
+            return await _dbContext.Stock.Include(s => s.Comments).FirstOrDefaultAsync(c => c.Id == id);
         }
         public async Task<Stock> CreateAsync(Stock stockModel)
         {
@@ -66,6 +62,13 @@ namespace finshark.Repository
             await _dbContext.SaveChangesAsync();
 
             return existingStock;
+        }
+
+        public async Task<bool> StockExists(int id)
+        {
+            var stock = await _dbContext.Stock.FindAsync(id);
+            // return await _dbContext.Stock.AnyAsync(s => s.Id == id);
+            return stock != null;
         }
     }
 }
