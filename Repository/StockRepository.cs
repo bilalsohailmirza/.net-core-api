@@ -1,5 +1,6 @@
 using finshark.Data;
 using finshark.Dtos.Stock;
+using finshark.Helpers;
 using finshark.Interfaces;
 using finshark.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +15,30 @@ namespace finshark.Repository
         {
             _dbContext = dbContext;
         }
-        public async Task<List<Stock>> GetAllAsync()
+        public async Task<List<Stock>> GetAllAsync(QueryObject query)
         {
-            return await _dbContext.Stock.Include(s => s.Comments).ToListAsync();
+            var stocks = _dbContext.Stock.Include(s => s.Comments).AsQueryable();   
+
+            if(!string.IsNullOrWhiteSpace(query.CompanyName)){
+                stocks = stocks.Where(s => s.CompanyName.Contains(query.CompanyName));
+            }
+
+            if(!string.IsNullOrWhiteSpace(query.Symbol)){
+                stocks = stocks.Where(s => s.Symbol.Contains(query.Symbol));
+            }
+
+            if(!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                if(query.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = query.IsDescending? stocks.OrderByDescending(s => s.Symbol) : stocks.OrderBy(s => s.Symbol);
+                }
+            }
+
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+
+
+            return await stocks.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
         public async Task<Stock> GetByIdAsync(int id)
         {
