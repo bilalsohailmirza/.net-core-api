@@ -13,7 +13,7 @@ namespace finshark.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
     [Migration("20241222200315_initial-migration")]
-    partial class initialmigration
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
